@@ -78,7 +78,7 @@ echo '#       Starting Provisioning of device profile and devices               
 echo '###############################################################################################'
 
 echo 'Provisioning HVAC device profile...'
-status_code=$(curl -s -X POST -H 'Content-Type: multipart/form-data' http://$METADATA_SVC_HOST:$METADATA_SVC_PORT/$METADATA_SVC_VERSION_PREFIX/$METADATA_PROVISION_DEVICE_PROFILE_ENDPOINT -F "file=@/Users/$(whoami)/Documents/edgeX/metadata/$METADATA_DEVICE_PROFILE_FILE" | jq -r .statusCode)
+status_code=$(curl -s -X POST -H 'Content-Type: multipart/form-data' http://$METADATA_SVC_HOST:$METADATA_SVC_PORT/$METADATA_SVC_VERSION_PREFIX/$METADATA_PROVISION_DEVICE_PROFILE_ENDPOINT -F "file=@metadata/$METADATA_DEVICE_PROFILE_FILE" | jq -r .statusCode)
 if [[ "$status_code" -eq 201 ]] ; then
   echo -e 'HVAC Device Profile provisioned successfully...\n'
 else
@@ -88,7 +88,7 @@ fi
 
 
 echo 'Provisioning HVAC-1 device...'
-status_code=$(curl -s -X POST -H 'Content-Type: application/json' http://$METADATA_SVC_HOST:$METADATA_SVC_PORT/$METADATA_SVC_VERSION_PREFIX/$METADATA_PROVISION_DEVICE_ENDPOINT -d@/Users/$(whoami)/Documents/edgeX/metadata/$METADATA_DEVICE_FILE | jq -r .[0].statusCode)
+status_code=$(curl -s -X POST -H 'Content-Type: application/json' http://$METADATA_SVC_HOST:$METADATA_SVC_PORT/$METADATA_SVC_VERSION_PREFIX/$METADATA_PROVISION_DEVICE_ENDPOINT -d@metadata/$METADATA_DEVICE_FILE | jq -r .[0].statusCode)
 if [[ "$status_code" -eq 201 ]] ; then
   echo -e 'HVAC-1 Device provisioned successfully...\n'
 else
